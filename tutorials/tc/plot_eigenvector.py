@@ -21,14 +21,15 @@ wn = data['domains/vertex-frequency-domain (COMPACT)/elements'] [:]
 # print(wn)
 
 # Eigenvector momentum grid
-k = data['domains/LATTICE_TP/MOMENTUM_SPACE/elements/data'][:]
+k = data['domains/CLUSTER/MOMENTUM_SPACE/elements'][:]
 # print(k)
 
 # Eigenvectors of leading eigenvalues
-# shape: [wn, k, b2, b1, ev_index, real/imag],
+# shape: [wn, k, b2, b1, ev_index],
 #        where ev_index labels the eigenvectors of the 10 leading eigenvalues.
 #        ev_index = 0 corresponds to the largest eigenvalue.
-eigenvecs = data['analysis-functions/leading-eigenvectors/data'][:]
+eigenvecs = data['analysis-functions/leading-eigenvectors'][:]
+# print(eigenvecs.shape)
 # print(eigenvecs.shape)
 
 # Parameters for plot
@@ -41,7 +42,7 @@ plt.figure()
 
 for k_ind, k_vec in enumerate(k):
     # Plot real part.
-    plt.plot(wn, eigenvecs[:, k_ind, b2, b1, ev_index, 0], 'o-', ms=2,
+    plt.plot(wn, eigenvecs[:, k_ind, b2, b1, ev_index].real, 'o-', ms=2,
              label=r'$\mathbf{K}$'+'=('+'{0:.3g}'.format(k_vec[0])+', '+'{0:.3g}'.format(k_vec[1])+')')
 
 plt.legend(loc='best')
